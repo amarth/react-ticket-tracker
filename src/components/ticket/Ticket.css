@@ -1,0 +1,95 @@
+.ticket {
+    position: relative;
+    border: 1px solid #bdc3c7;
+    border-radius: 2px;
+    padding: 16px;
+    margin: 4px;
+    font-size: 14px;
+    box-shadow: 2px 2px 2px 2px #90A4AE;
+    cursor: pointer;
+}
+
+.ticket::after {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom: 12px solid transparent;
+    border-right: 16px solid #bdc3c7;
+}
+
+.ticket-move-left, .ticket-move-right {
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    width: 16px;
+    height: 100%;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.ticket:hover > .ticket-move-left {
+    left: 0;
+    visibility: visible;
+    background: url('../../icons/left-arrow.svg') no-repeat center center;
+    background-color: rgba(189, 195, 199, .25)
+}
+
+.ticket:hover > .ticket-move-right {
+    right: 0;
+    visibility: visible;
+    background: url('../../icons/right-arrow.svg') no-repeat center center;
+    background-color: rgba(189, 195, 199, .25)
+}
+
+.ticket.selected {
+    box-shadow: 2px 2px 4px 4px #7f8c8d;
+}
+
+.ticket.info {
+    border-color: #27ae60;
+}
+
+.ticket.info::after {
+    border-right: 16px solid #27ae60;
+}
+
+.ticket.notification {
+    border-color: #f39c12;
+}
+
+.ticket.notification::after {
+    border-right: 16px solid #f39c12;
+}
+
+.ticket.issue {
+    border-color: #e74c3c;
+}
+
+.ticket.issue::after {
+    border-right: 16px solid #e74c3c;
+}
+
+.ticket-id {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-weight: 600;
+    color: #95a5a6;
+}
+
+.ticket-title {
+    color: #2c3e50;
+    border-bottom: 1px solid #2c3e50;
+    padding: 4px 0;
+}
+
+.ticket-description {
+    font-size: 12px;
+    padding-top: 4px;
+    max-height: 40px; 
+    overflow: hidden;
+}
