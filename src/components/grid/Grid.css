@@ -1,5 +1,5 @@
 .grid {
-    width: calc(100% - 300px);
+    width: calc(100% - 200px);
     float: left;
     display: flex;
     background-color: #FFf;
@@ -12,8 +12,21 @@
     border-right: 1px solid #90A4AE;
 }
 
-.input-tickets {
+@keyframes blink-animation {
+  to {
+    background-color: #ffcdd2;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    background-color: #ffcdd2;
+  }
+}
 
+.input-tickets > .ticket.issue {
+    border-color: #e74c3c;
+    animation: blink-animation 0.2s steps(10, start) 0s 2;
+    -webkit-animation: blink-animation 0.2s steps(10, start) 0s 2;
 }
 
 .accepted-tickets {

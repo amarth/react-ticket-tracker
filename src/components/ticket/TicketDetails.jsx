@@ -2,8 +2,12 @@ import React from 'react';
 
 import './TicketDetails.css';
 
-const TicketDetails = ({ticket, close, updateTicket}) => 
-    <div className='ticket-details'>
+const TicketDetails = ({ticket: propTicket, close, updateTicket}) => {
+
+    const state = propTicket ? 'open' : 'close';
+    const ticket = propTicket || {};
+
+return (<div className={`ticket-details ${state}`}>
         <span className='ticket-details-id'>Ticket #{ticket.id}</span>
         <div className={`ticket-details-type ${ticket.type ? ticket.type.toLowerCase() : ''}`}>{ticket.type}</div>
         <div className='ticket-details-title'>{ticket.title}</div>
@@ -32,6 +36,6 @@ const TicketDetails = ({ticket, close, updateTicket}) =>
         <div className='ticket-details-controls'>
             <button className='close-button' onClick={close}>close</button>
         </div>
-    </div>;
+</div>)};
 
 export default TicketDetails;

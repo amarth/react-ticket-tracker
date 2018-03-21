@@ -6,13 +6,13 @@ import properties, {
     ACCEPTED_TICKETS,
     RESOLVED_TICKETS,
     CONFIRMED_TICKETS 
-} from '../../store/properties';
+} from 'src/store/properties';
 import GridColumn from './GridColumn'
-import TicketDetails from '../ticket/TicketDetails'
+import TicketDetails from 'src/components/ticket/TicketDetails'
 import { 
     moveTicketAction, 
     updateTicket 
-} from '../ticket/actions'
+} from 'src/components/ticket/actions'
 
 import './Grid.css';
 
@@ -48,8 +48,8 @@ class Grid extends React.Component {
             <GridColumn className='accepted-tickets' title='In Progress' tickets={acceptedTickets} status={ACCEPTED_TICKETS} {...commonProps} />
             <GridColumn className='resolved-tickets' title='Resolved' tickets={resolvedTickets} status={RESOLVED_TICKETS} {...commonProps}/>
             <GridColumn className='confirmed-tickets' title='Confirmed' tickets={confirmedTickets} status={CONFIRMED_TICKETS} {...commonProps} />
-            {selectedTicket && 
-                <TicketDetails ticket={selectedTicket} close={() => this.setState({selectedTicketId: null})} updateTicket={updateTicket}/> }
+            
+            <TicketDetails ticket={selectedTicket} close={() => this.setState({selectedTicketId: null})} updateTicket={updateTicket}/> 
         </div>)};
 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { 
     addTicket,
     clearTickets,
     reset
-} from '../ticket/actions';
-import generateTicket from '../../generator/ticketGenerator'
+} from 'src/components/ticket/actions';
+import generateTicket from 'src/generator/ticketGenerator'
 
 import './ControlPanel.css';
 

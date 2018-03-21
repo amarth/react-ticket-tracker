@@ -34,14 +34,14 @@
 .ticket:hover > .ticket-move-left {
     left: 0;
     visibility: visible;
-    background: url('../../icons/left-arrow.svg') no-repeat center center;
+    background: url('~src/icons/left-arrow.svg') no-repeat center center;
     background-color: rgba(189, 195, 199, .25)
 }
 
 .ticket:hover > .ticket-move-right {
     right: 0;
     visibility: visible;
-    background: url('../../icons/right-arrow.svg') no-repeat center center;
+    background: url('~src/icons/right-arrow.svg') no-repeat center center;
     background-color: rgba(189, 195, 199, .25)
 }
 

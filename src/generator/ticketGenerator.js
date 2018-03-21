@@ -59,11 +59,9 @@ const genLines = () => {
 
 const genEmail = () => emails[generateNumberInRange(emails.length-1)];
 
-let counter = 1;
-const genTicket = () => {
-  const id = counter++;
+const genTicket = (id) => {
   return { 
-    id, 
+	id: id ? id : undefined,
     type: genType(),
     title: genLine(), 
     description: genLines().join(''),

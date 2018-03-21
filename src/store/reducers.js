@@ -4,9 +4,11 @@ import { defaultState, emptyState } from './defaults'
 
 const mergeArray = (state, prop, value) => {
     return {
-        [prop]: [...state[prop], value]
+        [prop]: [value, ...state[prop]]
     };
 }
+
+const nextId = (state) => (state[properties.LAST_ID] || 0) + 1; 
 
 export default  (state, action) => {
     let nextState = state;
@@ -20,13 +22,16 @@ export default  (state, action) => {
             nextState = emptyState;
             break;
         case 'ADD_TICKET':
+            const ticketId = nextId(state);
+            const ticketWithId = {...value, id: ticketId};
             nextState = {
                 ...state,
                 [properties.TICKETS]: {
                     ...state[properties.TICKETS],
-                     [value.id]: value
+                     [ticketId]: ticketWithId
                 },
-                ...mergeArray(state, properties.INPUT_TICKETS, action.value.id),
+                ...mergeArray(state, properties.INPUT_TICKETS, ticketId),
+                [properties.LAST_ID] : ticketId
             };
             break;
         case 'UPDATE_TICKET':
@@ -49,7 +54,7 @@ export default  (state, action) => {
         default:
     }
 
-    // console.dir(nextState);
+    //console.dir(nextState);
     (nextState !== state) && window.localStorage.setItem("ticket-grid", JSON.stringify(nextState));
 
     return nextState;

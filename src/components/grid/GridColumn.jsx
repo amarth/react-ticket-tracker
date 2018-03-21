@@ -5,8 +5,8 @@ import {
     ACCEPTED_TICKETS,
     RESOLVED_TICKETS,
     CONFIRMED_TICKETS 
-} from '../../store/properties';
-import Ticket from '../ticket/Ticket'
+} from 'src/store/properties';
+import Ticket from 'src/components/ticket/Ticket'
 
 const ticketFlow = {
     [INPUT_TICKETS]: {
@@ -30,7 +30,7 @@ const GridColumn = ({ className, title, tickets, status, moveTicket, selectTicke
         { tickets.map(ticket => 
             <Ticket key={ticket.id} {...ticket}  
                 moveRight={nextStatus && (() => moveTicket(ticket, status, nextStatus))} 
-                moveLeft={prevStatus && (() => prevStatus && moveTicket(ticket, status, prevStatus))}
+                moveLeft={prevStatus && (() => moveTicket(ticket, status, prevStatus))}
                 onClick={() => selectTicket(ticket)} 
                 isSelected={ticket === selectedTicket}
             />)

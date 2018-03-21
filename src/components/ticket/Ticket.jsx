@@ -2,15 +2,7 @@ import React from 'react';
 
 import './Ticket.css';
 
-const Details = ({content}) => 
-    <div>{content}</div>;
-
 class Ticket extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { showDetails: false };
-    }
-
     render() {
         const { 
             id,
@@ -22,7 +14,6 @@ class Ticket extends React.Component {
             onClick,
             isSelected
         } = this.props;
-        const { showDetails } = this.state;
 
         return (<div className={`ticket ${type.toLowerCase()} ${isSelected ? 'selected' : ''}`}  onClick={onClick}>
             { moveLeft && 
@@ -36,9 +27,8 @@ class Ticket extends React.Component {
                 <span className='ticket-id'>#{id}</span>
                 <div className='ticket-title'>{title}</div>
                 <div className='ticket-description'>
-                    {description}
+                    <p ref={ref => this._description = ref}>{description}</p>
                 </div>
-                { showDetails && <Details content={description} /> }
             </div>
             { moveRight && 
                 <div className='ticket-move-right' 
