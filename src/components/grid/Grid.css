@@ -1,5 +1,5 @@
 .grid {
-    width: calc(100% - 200px);
+    width: 100%;
     float: left;
     display: flex;
     background-color: #FFf;

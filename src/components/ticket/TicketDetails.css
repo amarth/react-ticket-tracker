@@ -1,5 +1,5 @@
 .ticket-details {
-    position: absolute;
+    position: fixed;
     background-color: #fff;
     min-height: 100%;
     width: 300px;
