@@ -1,6 +1,25 @@
 import React from 'react';
+import { DragSource } from 'react-dnd';
 
 import './Ticket.css';
+
+
+export const ItemTypes = {
+    TICKET: 'ticket'
+};
+
+const ticketSource = {
+    beginDrag(props) {
+        return {ticketId: props.id, ticketStatus: props.status };
+    }
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
 
 class Ticket extends React.Component {
     render() {
@@ -12,10 +31,12 @@ class Ticket extends React.Component {
             moveLeft, 
             moveRight,
             onClick,
-            isSelected
+            isSelected,
+            connectDragSource, 
+            isDragging
         } = this.props;
 
-        return (<div className={`ticket ${type.toLowerCase()} ${isSelected ? 'selected' : ''}`}  onClick={onClick}>
+        return connectDragSource(<div style={{opacity: isDragging ? 0.75 : 1 }} className={`ticket ${type.toLowerCase()} ${isSelected ? 'selected' : ''}`}  onClick={onClick}>
             { moveLeft && 
                 <div className='ticket-move-left' 
                     onClick={e => {
@@ -41,4 +62,4 @@ class Ticket extends React.Component {
     }
 }
 
-export default Ticket;
+export default DragSource(ItemTypes.TICKET, ticketSource, collect)(Ticket);

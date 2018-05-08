@@ -31,18 +31,34 @@
     cursor: pointer;
 }
 
-.ticket:hover > .ticket-move-left {
-    left: 0;
-    visibility: visible;
+.ticket-move-left, .ticket-move-right {
+    visibility: hidden;
+}
+
+.ticket-move-left {
     background: url('~src/icons/left-arrow.svg') no-repeat center center;
-    background-color: rgba(189, 195, 199, .25)
+    background-color: rgba(189, 195, 199, .25);
+    left: 0;
+}
+
+.ticket-move-right {
+    background: url('~src/icons/right-arrow.svg') no-repeat center center;
+    background-color: rgba(189, 195, 199, .25);
+    right: 0;
+}
+
+.ticket:hover > .ticket-move-left {
+    visibility: visible;
 }
 
 .ticket:hover > .ticket-move-right {
-    right: 0;
     visibility: visible;
-    background: url('~src/icons/right-arrow.svg') no-repeat center center;
-    background-color: rgba(189, 195, 199, .25)
+}
+
+@media(max-width: 768px) {
+    .ticket-move-left, .ticket-move-right {
+        visibility: visible;
+    }
 }
 
 .ticket.selected {

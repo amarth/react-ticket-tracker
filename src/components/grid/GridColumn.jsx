@@ -1,31 +1,36 @@
 import React from 'react';
+import { DropTarget } from 'react-dnd';
 
-import {
-    INPUT_TICKETS,
-    ACCEPTED_TICKETS,
-    RESOLVED_TICKETS,
-    CONFIRMED_TICKETS 
-} from 'src/store/properties';
 import Ticket from 'src/components/ticket/Ticket'
+import { ticketFlow } from 'src/components/ticket/ticket'
 
-const ticketFlow = {
-    [INPUT_TICKETS]: {
-        nextStatus: ACCEPTED_TICKETS
-    },
-    [ACCEPTED_TICKETS]: {
-        nextStatus: RESOLVED_TICKETS
-    },
-    [RESOLVED_TICKETS]: {
-        prevStatus: ACCEPTED_TICKETS,
-        nextStatus: CONFIRMED_TICKETS
-    }
+import './GridColumn.css';
+
+const columnTarget = {
+    drop({moveTicket, status}, monitor) {
+        const { ticketId, ticketStatus } = monitor.getItem();
+        moveTicket({id: ticketId}, ticketStatus, status);
+    },    
+    canDrop({ status }, monitor) {
+        const { ticketStatus } = monitor.getItem();
+        const { allowedStatuses = [] } = ticketFlow[ticketStatus];
+        return ticketStatus !== status && allowedStatuses.indexOf(status) !== -1;
+    }    
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+        item: monitor.getItem()
+    };
 }
 
-
-const GridColumn = ({ className, title, tickets, status, moveTicket, selectTicket, selectedTicket }) => {
+const GridColumn = ({ className, title, tickets, status, moveTicket, selectTicket, selectedTicket, connectDropTarget, isOver, canDrop, item }) => {
     const { prevStatus, nextStatus } = ticketFlow[status] || {};
-
-    return <div className={className}>
+    const dropTargetClass = resolveDropTargetClass({ isOver, canDrop, item })
+    return connectDropTarget(<div className={`${className} ${dropTargetClass}`}>
         <div className='grid-column-title'>{title}</div>
         { tickets.map(ticket => 
             <Ticket key={ticket.id} {...ticket}  
@@ -33,9 +38,19 @@ const GridColumn = ({ className, title, tickets, status, moveTicket, selectTicke
                 moveLeft={prevStatus && (() => moveTicket(ticket, status, prevStatus))}
                 onClick={() => selectTicket(ticket)} 
                 isSelected={ticket === selectedTicket}
+                status={status}
             />)
         }
-    </div>
+    </div>)
 };
 
-export default GridColumn;
+function resolveDropTargetClass({ isOver, canDrop, item }) {
+    const noDrop = item && !canDrop && 'no-drop';
+    const mayDrop = !isOver && canDrop && 'can-drop';
+    const drop = isOver && canDrop && 'drop';
+
+    return noDrop || mayDrop || drop || '';
+}
+
+
+export default DropTarget('ticket', columnTarget, collect)(GridColumn);

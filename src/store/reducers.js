@@ -54,7 +54,6 @@ export default  (state, action) => {
         default:
     }
 
-    //console.dir(nextState);
     (nextState !== state) && window.localStorage.setItem("ticket-grid", JSON.stringify(nextState));
 
     return nextState;

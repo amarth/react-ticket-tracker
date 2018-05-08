@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import properties, {
     INPUT_TICKETS,
@@ -52,8 +54,7 @@ class Grid extends React.Component {
             <TicketDetails ticket={selectedTicket} close={() => this.setState({selectedTicketId: null})} updateTicket={updateTicket}/> 
         </div>)};
 }
-
-export default connect((state) => {
+export default DragDropContext(HTML5Backend)(connect(state => {
     const tickets = state[properties.TICKETS];
     return {
        inputTickets: state[properties.INPUT_TICKETS].map(id => tickets[id]),
@@ -63,9 +64,9 @@ export default connect((state) => {
        getTicket: (id) => id && tickets[id]
     }
 },
-(dispatch) => ({
+dispatch => ({
     moveTicket: (ticket, fromStatus, toStatus) => 
         dispatch(moveTicketAction(ticket, {fromStatus, toStatus})),
     updateTicket: (ticket) => 
         dispatch(updateTicket(ticket))
-}))(Grid);
+}))(Grid));

@@ -29,23 +29,3 @@
     -webkit-animation: blink-animation 0.2s steps(10, start) 0s 2;
 }
 
-.accepted-tickets {
-
-}
-
-.resolved-tickets {
-
-}
-
-.confirmed-tickets {
-
-}
-
-.grid-column-title {
-    padding: 4px;
-    text-align: center;
-    text-transform: uppercase;
-    border-bottom: 2px solid #90A4AE;
-    font-size: 14px;
-    box-shadow: 0px 2px 3px 0px #90A4AE;
-}
